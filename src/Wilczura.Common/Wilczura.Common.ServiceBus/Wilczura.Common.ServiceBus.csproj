@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="MassTransit.Abstractions" Version="8.3.4" />
-    <PackageReference Include="Wilczura.Common" Version="1.0.1" />
+    <PackageReference Include="Wilczura.Common" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
