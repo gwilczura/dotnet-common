@@ -1,0 +1,25 @@
+name: build and release
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Build with dotnet
+        run: dotnet build ${{env.SOLUTION_PATH}} --configuration Release
