@@ -17,6 +17,9 @@ on:
         required: false
         default: '8.0'
         type: string
+    secrets:
+      token:
+        required: true
 
 jobs:
   build-and-publish:
@@ -40,4 +43,4 @@ jobs:
         run: dotnet pack ${{ inputs.project-path }} -o package --configuration ${{ inputs.build-config }}
 
       - name: Publish Package
-        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate './package/*.nupkg'
+        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{ secrets.token }} --skip-duplicate './package/*.nupkg'

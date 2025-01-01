@@ -8,13 +8,11 @@ on:
 permissions:
   packages: write
 
-env:
-  SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
-  PROJECT_PATH: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
-
 jobs:
   build-and-release:
     uses: ./.github/workflows/build-and-release.yml
     with:
-      solution-path: ${{ env.SOLUTION_PATH }}
-      project-path: ${{ env.PROJECT_PATH }}
+      solution-path: 'src/Wilczura.Common/Wilczura.Common.sln'
+      project-path: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
