@@ -1,0 +1,20 @@
+name: build and release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  packages: write
+
+env:
+  SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
+  PROJECT_PATH: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
+
+jobs:
+  build-and-release:
+    uses: ./.github/workflows/build-and-release.yml
+    with:
+      solution-path: ${{ env.SOLUTION_PATH }}
+      project-path: ${{ env.PROJECT_PATH }}

@@ -1,20 +1,25 @@
-name: build and release
+name: reusable build and release nuget package
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  packages: write
-
-env:
-  BUILD_CONFIG: 'Release'
-  SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
-  PROJECT_PATH: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
+  workflow_call:
+    inputs:
+      solution-path:
+        required: true
+        type: string
+      project-path:
+        required: true
+        type: string
+      build-config:
+        required: false
+        default: 'Release'
+        type: string
+      dotnet-version:
+        required: false
+        default: '8.0'
+        type: string
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     name: build
     steps:
@@ -23,16 +28,16 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: ${{ inputs.dotnet-version }}
 
       - name: Restore dependencies
-        run: dotnet restore ${{env.SOLUTION_PATH}}
+        run: dotnet restore ${{ inputs.solution-path }}
 
       - name: Build with dotnet
-        run: dotnet build ${{env.SOLUTION_PATH}} --configuration ${{env.BUILD_CONFIG}}
+        run: dotnet build ${{ inputs.solution-path } --configuration ${{ inputs.build-config }}
 
       - name: Make package
-        run: dotnet pack ${{env.PROJECT_PATH}} -o package --configuration ${{env.BUILD_CONFIG}}
+        run: dotnet pack ${{ inputs.project-path }} -o package --configuration ${{ inputs.build-config }}
 
       - name: Publish Package
-        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{secrets.GITHUB_TOKEN}} --skip-duplicate './package/*.nupkg'
+        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{ secrets.GITHUB_TOKEN }} --skip-duplicate './package/*.nupkg'
