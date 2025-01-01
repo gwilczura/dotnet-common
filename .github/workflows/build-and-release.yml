@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  packages: write
+
 env:
   BUILD_CONFIG: 'Release'
   SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
@@ -29,4 +32,7 @@ jobs:
         run: dotnet build ${{env.SOLUTION_PATH}} --configuration ${{env.BUILD_CONFIG}}
 
       - name: Make package
-        run: dotnet pack ${{env.PROJECT_PATH}} -o package  --configuration ${{env.BUILD_CONFIG}}
+        run: dotnet pack ${{env.PROJECT_PATH}} -o package --configuration ${{env.BUILD_CONFIG}}
+
+      - name: Publish Package
+        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{secrets.GITHUB_TOKEN}} --skip-duplicate './package/*.nupkg'
