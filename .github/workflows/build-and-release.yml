@@ -37,7 +37,7 @@ jobs:
         run: dotnet restore ${{ inputs.solution-path }}
 
       - name: Build with dotnet
-        run: dotnet build ${{ inputs.solution-path } --configuration ${{ inputs.build-config }}
+        run: dotnet build ${{ inputs.solution-path }} --configuration ${{ inputs.build-config }}
 
       - name: Make package
         run: dotnet pack ${{ inputs.project-path }} -o package --configuration ${{ inputs.build-config }}
