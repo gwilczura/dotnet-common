@@ -6,8 +6,9 @@ on:
       - main
 
 env:
-  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  BUILD_CONFIG: 'Release'
   SOLUTION_PATH: 'src/Wilczura.Common/Wilczura.Common.sln'
+  PROJECT_PATH: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
 
 jobs:
   build:
@@ -21,5 +22,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Restore dependencies
+        run: dotnet restore ${{env.SOLUTION_PATH}}
+
       - name: Build with dotnet
-        run: dotnet build ${{env.SOLUTION_PATH}} --configuration Release
+        run: dotnet build ${{env.SOLUTION_PATH}} --configuration ${{env.BUILD_CONFIG}}
+
+      - name: Make package
+        run: dotnet pack ${{env.PROJECT_PATH}} -o package  --configuration ${{env.BUILD_CONFIG}}
