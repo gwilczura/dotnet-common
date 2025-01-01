@@ -17,6 +17,18 @@ on:
         required: false
         default: '8.0'
         type: string
+      package-source:
+        required: false
+        default: 'https://nuget.pkg.github.com/gwilczura/index.json'
+        type: string
+      package-source-name:
+        required: false
+        default: 'github-gwilczura'
+        type: string
+      package-source-username:
+        required: false
+        default: 'gwilczura'
+        type: string
     secrets:
       token:
         required: true
@@ -32,6 +44,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ inputs.dotnet-version }}
+
+      - name: Authenticate to packages repository
+        run: dotnet nuget add source --username ${{ inputs.package-source-username }} --password ${{ secrets.token }} --store-password-in-clear-text --name ${{ inputs.package-source-name }} "${{ inputs.package-source }}"
 
       - name: Restore dependencies
         run: dotnet restore ${{ inputs.solution-path }}
