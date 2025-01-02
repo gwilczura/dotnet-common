@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build-and-release:
-    uses: ./src/workflows/build-and-publish.yml@main
+    uses: ./.github/workflows/reusable/build-and-publish.yml
     with:
       solution-path: 'src/Wilczura.Common/Wilczura.Common.sln'
       project-path: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
