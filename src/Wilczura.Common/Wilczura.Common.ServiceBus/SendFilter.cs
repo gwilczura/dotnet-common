@@ -1,54 +1,23 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
-using Wilczura.Common.Consts;
 using Wilczura.Common.Logging;
 
 namespace Wilczura.Common.ServiceBus;
 
-public class SendFilter<T> : IFilter<SendContext<T>> where T : class
+public class SendFilter<T> : ObservingFilter<SendContext<T>> where T : class
 {
-    private readonly ILogger<SendFilter<T>> _logger;
-
-    public SendFilter(ILogger<SendFilter<T>> logger)
-    {
-        _logger = logger;
-    }
-
-    public void Probe(ProbeContext context)
+    public SendFilter(ILogger<SendFilter<T>> logger) : base(logger)
     {
     }
 
-    // TODO: SHOW P3 - MassTransit filter based logging (Send)
-    public async Task Send(SendContext<T> context, IPipe<SendContext<T>> next)
-    {
-        Exception? exception = null;
-        var message = "Message send";
-        var activityName = "message-send";
-        var logInfo = new LogInfo(message, ObservabilityConsts.EventCategoryProcess);
-        logInfo.Endpoint = $"{context.DestinationAddress?.LocalPath}";
-        logInfo.EventAction = activityName;
-        var logScope = new LogScope(_logger, logInfo, LogLevel.Information, LogEvents.WebRequest, activityName: activityName);
-        try
-        {
-            await next.Send(context);
-        }
-        catch (Exception ex)
-        {
-            exception = ex;
-            throw;
-        }
-        finally
-        {
-            if (exception != null)
-            {
-                logInfo.ApplyException(exception);
-            }
-            else
-            {
-                logInfo.EventOutcome = ObservabilityConsts.EventOutcomeSuccess;
-            }
+    protected override string Message => "Message send";
 
-            logScope.Dispose();
-        }
+    protected override string ActivityName => "message-send";
+
+    protected override EventId Event => LogEvents.Custom;
+
+    protected override string GetEndpoint(SendContext<T> context)
+    {
+        return $"{context.DestinationAddress?.LocalPath}";
     }
 }

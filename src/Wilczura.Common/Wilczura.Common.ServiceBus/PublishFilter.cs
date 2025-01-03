@@ -1,54 +1,23 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
-using Wilczura.Common.Consts;
 using Wilczura.Common.Logging;
 
 namespace Wilczura.Common.ServiceBus;
 
-public class PublishFilter<T> : IFilter<PublishContext<T>> where T : class
+public class PublishFilter<T> : ObservingFilter<PublishContext<T>> where T : class
 {
-    private readonly ILogger<PublishFilter<T>> _logger;
-
-    public PublishFilter(ILogger<PublishFilter<T>> logger)
-    {
-        _logger = logger;
-    }
-
-    public void Probe(ProbeContext context)
+    public PublishFilter(ILogger<PublishFilter<T>> logger) : base(logger)
     {
     }
 
-    // TODO: SHOW P3 - MassTransit filter based logging (Publish)
-    public async Task Send(PublishContext<T> context, IPipe<PublishContext<T>> next)
-    {
-        Exception? exception = null;
-        var message = "Message publish";
-        var activityName = "message-publish";
-        var logInfo = new LogInfo(message, ObservabilityConsts.EventCategoryProcess);
-        logInfo.Endpoint = $"{context.DestinationAddress?.LocalPath}";
-        logInfo.EventAction = activityName;
-        var logScope = new LogScope(_logger, logInfo, LogLevel.Information, LogEvents.WebRequest, activityName: activityName);
-        try
-        {
-            await next.Send(context);
-        }
-        catch (Exception ex)
-        {
-            exception = ex;
-            throw;
-        }
-        finally
-        {
-            if (exception != null)
-            {
-                logInfo.ApplyException(exception);
-            }
-            else
-            {
-                logInfo.EventOutcome = ObservabilityConsts.EventOutcomeSuccess;
-            }
+    protected override string Message => "Message publish";
 
-            logScope.Dispose();
-        }
+    protected override string ActivityName => "message-publish";
+
+    protected override EventId Event => LogEvents.Custom;
+
+    protected override string GetEndpoint(PublishContext<T> context)
+    {
+        return $"{context.DestinationAddress?.LocalPath}";
     }
 }

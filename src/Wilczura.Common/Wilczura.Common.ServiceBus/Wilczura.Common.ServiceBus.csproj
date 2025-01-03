@@ -4,17 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.0.2</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Description>Shared code for service bus integration</Description>
     <Copyright>Grzegorz Wilczura</Copyright>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Base code included</PackageReleaseNotes>
+    <PackageReleaseNotes>Adjust filters</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MassTransit.Abstractions" Version="8.3.4" />
-    <PackageReference Include="Wilczura.Common" Version="1.0.2" />
+    <PackageReference Include="Wilczura.Common" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
