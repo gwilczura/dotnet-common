@@ -1,0 +1,18 @@
+name: Wilczura.Common.Web - build and release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  packages: write
+
+jobs:
+  build-and-release:
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      solution-path: 'src/Wilczura.Common/Wilczura.Common.sln'
+      project-path: 'src/Wilczura.Common/Wilczura.Common.Web/Wilczura.Common.Web.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
