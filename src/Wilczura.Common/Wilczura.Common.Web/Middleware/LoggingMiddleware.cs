@@ -2,6 +2,7 @@
 using Elastic.Apm.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Wilczura.Common.Consts;
 using Wilczura.Common.Logging;
@@ -16,11 +17,14 @@ public class LoggingMiddleware
     private readonly ILogger<LoggingMiddleware> _logger;
     private readonly CustomOptions _customOptions;
 
-    public LoggingMiddleware(RequestDelegate next, ILogger<LoggingMiddleware> logger, CustomOptions customOptions)
+    public LoggingMiddleware(
+        RequestDelegate next, 
+        ILogger<LoggingMiddleware> logger, 
+        IOptions<CustomOptions> customOptions)
     {
         _next = next;
         _logger = logger;
-        _customOptions = customOptions;
+        _customOptions = customOptions.Value;
     }
 
     public async Task InvokeAsync(HttpContext context)

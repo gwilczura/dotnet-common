@@ -75,7 +75,7 @@ public static class ApplicationBuilderExtensions
         app.Services.Configure<RandomExceptionMiddlewareOptions>(configRendomEx);
 
         app.AddEntraIdPrincipalProvider(configName);
-        app.AddEntraIdAuthentication(configName);
+        app.AddEntraIdAuthentication(configName, logger);
         app.Services.AddControllers(o =>
         {
             switch (authenticationType)
@@ -118,7 +118,12 @@ public static class ApplicationBuilderExtensions
         //TODO: SHOW P1 - AddAllElasticApm
         if (options.EnableApm)
         {
+            logger?.LogInformation("Elastic APM - enabled.");
             app.Services.AddElasticApm();
+        }
+        else
+        {
+            logger?.LogInformation("Elastic APM - disabled.");
         }
 
         //TODO: SHOW P1 - cross system compatibility
@@ -130,13 +135,22 @@ public static class ApplicationBuilderExtensions
         }
         _ = new CustomActivityListener(ObservabilityConsts.DefaultListenerName);
 
-        logger?.LogInformation("Disabling default log providers. Enabling ELK.");
-        app.Logging.ClearProviders();
-        // TODO: SHOW P1 - Add Elasticsearch "logger"
-        app.Logging.AddElasticsearch(loggerOptions =>
+
+        var elasticsearchConfigSection = app.Configuration.GetSection("Logging").GetSection("Elasticsearch");
+        if (elasticsearchConfigSection?.Value == null)
         {
-            loggerOptions.MapCustom = CustomLogMapper.Map;
-        });
+            logger?.LogInformation("ELK logging - disabled");
+        }
+        else
+        {
+            logger?.LogInformation("Disabling default log providers. Enabling ELK.");
+            app.Logging.ClearProviders();
+            // TODO: SHOW P1 - Add Elasticsearch "logger"
+            app.Logging.AddElasticsearch(loggerOptions =>
+            {
+                loggerOptions.MapCustom = CustomLogMapper.Map;
+            });
+        }
     }
 
     private static void LogConfigurationSources(
@@ -163,30 +177,37 @@ public static class ApplicationBuilderExtensions
         ILogger? logger = null)
     {
         var keyVaultName = app.Configuration[CommonConsts.KeyVaultNameKey];
-        var servicePrincipalSection = app.Configuration.GetSection(sectionName).GetSection(CommonConsts.ServicePrincipalKey)!;
-        var options = new ConfidentialClientApplicationOptions();
-        servicePrincipalSection.Bind(options);
-
-        TokenCredential credential =
-            !string.IsNullOrWhiteSpace(options?.ClientSecret)
-            ? new ClientSecretCredential(options!.TenantId, options.ClientId, options.ClientSecret)
-            : new DefaultAzureCredential();
-
-        logger?.LogInformation("KeyVault: {vaultName}, {name}, {clientId}", keyVaultName, credential.GetType().Name, options?.ClientId);
-
-        try
+        if (string.IsNullOrEmpty(keyVaultName))
         {
-            app.Configuration.AddAzureKeyVault(
-                new Uri($"https://{keyVaultName}.vault.azure.net/"),
-                credential,
-                new AzureKeyVaultConfigurationOptions
-                {
-                    ReloadInterval = TimeSpan.FromMinutes(5)
-                });
+            logger?.LogInformation("KeyVault: config from key vault disabled");
         }
-        catch (Exception ex)
+        else
         {
-            logger?.LogError("KeyVault Failure: {message}", ex.Message);
+            var servicePrincipalSection = app.Configuration.GetSection(sectionName).GetSection(CommonConsts.ServicePrincipalKey)!;
+            var options = new ConfidentialClientApplicationOptions();
+            servicePrincipalSection.Bind(options);
+
+            TokenCredential credential =
+                !string.IsNullOrWhiteSpace(options?.ClientSecret)
+                ? new ClientSecretCredential(options!.TenantId, options.ClientId, options.ClientSecret)
+                : new DefaultAzureCredential();
+
+            logger?.LogInformation("KeyVault: {vaultName}, {name}, {clientId}", keyVaultName, credential.GetType().Name, options?.ClientId);
+
+            try
+            {
+                app.Configuration.AddAzureKeyVault(
+                    new Uri($"https://{keyVaultName}.vault.azure.net/"),
+                    credential,
+                    new AzureKeyVaultConfigurationOptions
+                    {
+                        ReloadInterval = TimeSpan.FromMinutes(5)
+                    });
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError("KeyVault Failure: {message}", ex.Message);
+            }
         }
 
         return app;
