@@ -52,4 +52,18 @@ jobs:
         run: dotnet build ${{ inputs.project-path }} --configuration ${{ inputs.build-config }}
 
       - name: Run tests
-        run: dotnet test ${{ inputs.project-path }} --configuration ${{ inputs.build-config }}
+        run: dotnet test ${{ inputs.project-path }} --configuration ${{ inputs.build-config }} --logger trx
+
+      - name: Upload Test Result Files
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/**/TestResults/**/*
+          retention-days: 5
+          
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.18.0
+        if: always()
+        with:
+          # NOTE: using trx_files instead of files due to https://github.com/EnricoMi/publish-unit-test-result-action/issues/424
+          trx_files: "${{ github.workspace }}/**/*.trx"
