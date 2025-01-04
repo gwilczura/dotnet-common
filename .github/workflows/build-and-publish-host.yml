@@ -12,7 +12,6 @@ jobs:
   build-and-release:
     uses: ./.github/workflows/build-and-publish.yml
     with:
-      solution-path: 'src/Wilczura.Common/Wilczura.Common.sln'
       project-path: 'src/Wilczura.Common/Wilczura.Common.Host/Wilczura.Common.Host.csproj'
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
