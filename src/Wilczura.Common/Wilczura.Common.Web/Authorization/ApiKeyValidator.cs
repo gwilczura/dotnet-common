@@ -6,7 +6,8 @@ namespace Wilczura.Common.Web.Authorization;
 
 public class ApiKeyValidator : IApiKeyValidator
 {
-    string ApiKey;
+    private readonly string ApiKey;
+
     public ApiKeyValidator(IOptions<CustomOptions> options)
     {
         ApiKey = options.Value.ApiKey ?? string.Empty;

@@ -9,13 +9,13 @@ public static class CustomLogMapper
 {
     private const string ClosingBracket = "}";
     private const string OpeningBracket = "{";
-    private static readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+    private static readonly JsonSerializerOptions _serializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
     };
 
-    // TODO: SHOW P2 - map LogInfo to LogEvent
+    // map LogInfo to LogEvent
     // https://github.com/elastic/ecs-dotnet/blob/main/src/Elastic.Extensions.Logging/README.md#tracing-fields
     // https://github.com/elastic/ecs-dotnet/blob/main/src/Elastic.Extensions.Logging/ElasticsearchLogger.cs
     // https://github.com/elastic/ecs-dotnet/blob/main/src/Elastic.CommonSchema/EcsDocument.cs

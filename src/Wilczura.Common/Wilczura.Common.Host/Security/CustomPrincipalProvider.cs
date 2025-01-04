@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
+using Wilczura.Common.Security;
 
-namespace Wilczura.Common.Security;
+namespace Wilczura.Common.Host.Security;
 
 public class CustomPrincipalProvider : ICustomPrincipalProvider
 {

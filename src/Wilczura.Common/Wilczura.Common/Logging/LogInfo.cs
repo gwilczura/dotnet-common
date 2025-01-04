@@ -6,7 +6,7 @@ namespace Wilczura.Common.Logging;
 
 public class LogInfo(string message, string eventCategory)
 {
-    public static LogInfo From(string message) => new LogInfo(message, ObservabilityConsts.EventCategoryProcess);
+    public static LogInfo From(string message) => new(message, ObservabilityConsts.EventCategoryProcess);
     public string Message { get; set; } = message;
 
     // TODO: SHOW P5 - not nanoseconds

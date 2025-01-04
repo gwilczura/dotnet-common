@@ -39,14 +39,8 @@ public class LogScope : IDisposable
     {
         _stopwatch.Stop();
         _logInfo.EventDuration = _stopwatch.ElapsedMilliseconds;
-        if (_activity != null)
-        {
-            _activity.SetEndTime(DateTime.UtcNow);
-        }
+        _activity?.SetEndTime(DateTime.UtcNow);
         _logger.Log(_level, _logInfo, _eventId);
-        if(_activity != null)
-        {
-            _activity.Dispose();
-        }
+        _activity?.Dispose();
     }
 }

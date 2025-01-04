@@ -1,6 +1,5 @@
 ﻿namespace Wilczura.Common.Exceptions;
-public class CustomException : Exception
+public class CustomException(string message, Exception? innerException = null) : Exception(message, innerException)
 {
-    public CustomException(string message, Exception? innerException = null) : base(message, innerException) { }
 }
 
