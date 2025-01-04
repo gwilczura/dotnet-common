@@ -4,12 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <VersionPrefix>1.0.3</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Description>Shared code for service bus integration</Description>
     <Copyright>Grzegorz Wilczura</Copyright>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Adjust filters</PackageReleaseNotes>
+    <PackageReleaseNotes>APM in filters</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -29,11 +29,12 @@ public class LoggingMiddleware
         var message = "Http in";
         var activityName = "http-in";
         var logInfo = new LogInfo(message, ObservabilityConsts.EventCategoryWeb);
+        logInfo.EventAction = activityName;
+        var eventId = LogEvents.WebRequest;
 
-        Func<Task> action = async () =>
+        async Task action()
         {
-            logInfo.EventAction = activityName;
-            var logScope = new LogScope(_logger, logInfo, LogLevel.Information, LogEvents.WebRequest, activityName: activityName);
+            var logScope = new LogScope(_logger, logInfo, LogLevel.Information, eventId, activityName: activityName);
             logInfo.HttpMethod = context.Request.Method;
             try
             {
@@ -69,7 +70,7 @@ public class LoggingMiddleware
 
                 logScope.Dispose();
             }
-        };
+        }
 
         if (_customOptions.EnableApm)
         {
@@ -82,7 +83,8 @@ public class LoggingMiddleware
                 currentTraceData = DistributedTracingData.TryDeserializeFromString(traceParentHeader);
             }
 
-            await Agent.Tracer.CaptureTransaction(activityName, nameof(LogEvents.WebRequest), action, currentTraceData);
+            // TODO: distributed traces not working
+            await Agent.Tracer.CaptureTransaction(activityName, eventId.Name, action, currentTraceData);
         }
         else
         {
