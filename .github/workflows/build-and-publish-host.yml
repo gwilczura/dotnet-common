@@ -1,4 +1,4 @@
-name: Wilczura.Common.Web - build and release
+name: Wilczura.Common.Host - build and release
 
 on:
   push:

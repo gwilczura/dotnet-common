@@ -49,10 +49,10 @@ jobs:
         run: dotnet nuget add source --username ${{ inputs.package-source-username }} --password ${{ secrets.token }} --store-password-in-clear-text --name ${{ inputs.package-source-name }} "${{ inputs.package-source }}"
 
       - name: Restore dependencies
-        run: dotnet restore ${{ inputs.solution-path }}
+        run: dotnet restore ${{ inputs.project-path }}
 
       - name: Build with dotnet
-        run: dotnet build ${{ inputs.solution-path }} --configuration ${{ inputs.build-config }}
+        run: dotnet build ${{ inputs.project-path }} --configuration ${{ inputs.build-config }}
 
       - name: Make package
         run: dotnet pack ${{ inputs.project-path }} -o package --configuration ${{ inputs.build-config }}
