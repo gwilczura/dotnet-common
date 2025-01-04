@@ -4,12 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.0.2</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Description>Shared code for service host</Description>
     <Copyright>Grzegorz Wilczura</Copyright>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Base code</PackageReleaseNotes>
+    <PackageReleaseNotes>Bump dependencies</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,8 +17,8 @@
     <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.31.0" />
     <PackageReference Include="Elastic.Extensions.Logging" Version="8.12.3" />
     <PackageReference Include="Microsoft.Identity.Web" Version="3.5.0" />
-    <PackageReference Include="Wilczura.Common.ServiceBus" Version="1.0.3" />
-    <PackageReference Include="Wilczura.Common.Web" Version="1.0.3" />
+    <PackageReference Include="Wilczura.Common.ServiceBus" Version="1.0.4" />
+    <PackageReference Include="Wilczura.Common.Web" Version="1.0.5" />
   </ItemGroup>
 
 </Project>

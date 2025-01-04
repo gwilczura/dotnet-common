@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Demo.Adapters.Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Demo.Host", "Wilczura.Demo.Host\Wilczura.Demo.Host.csproj", "{A6A630CE-C947-4E75-B206-E214F832B0DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Common.Tests.Unit", "Wilczura.Common.Tests.Unit\Wilczura.Common.Tests.Unit.csproj", "{D950F2C8-901C-4A16-A425-1C9B1F501416}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{A6A630CE-C947-4E75-B206-E214F832B0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6A630CE-C947-4E75-B206-E214F832B0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6A630CE-C947-4E75-B206-E214F832B0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

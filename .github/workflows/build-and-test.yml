@@ -1,4 +1,4 @@
-name: reusable build and release nuget package
+name: reusable build and run tests
 
 on:
   workflow_call:
@@ -8,32 +8,20 @@ on:
         type: string
       build-config:
         required: false
-        default: 'Release'
+        default: 'Debug'
         type: string
       dotnet-version:
         required: false
         default: '8.0'
-        type: string
-      package-source:
-        required: false
-        default: 'https://nuget.pkg.github.com/gwilczura/index.json'
-        type: string
-      package-source-name:
-        required: false
-        default: 'github-gwilczura'
-        type: string
-      package-source-username:
-        required: false
-        default: 'gwilczura'
         type: string
     secrets:
       token:
         required: true
 
 jobs:
-  build-and-publish:
+  build-and-test:
     runs-on: ubuntu-latest
-    name: build-and-publish
+    name: build-and-test
     steps:
       - uses: actions/checkout@v4
 
@@ -51,8 +39,5 @@ jobs:
       - name: Build with dotnet
         run: dotnet build ${{ inputs.project-path }} --configuration ${{ inputs.build-config }}
 
-      - name: Make package
-        run: dotnet pack ${{ inputs.project-path }} -o package --configuration ${{ inputs.build-config }}
-
-      - name: Publish Package
-        run: dotnet nuget push -s https://nuget.pkg.github.com/gwilczura/index.json -k ${{ secrets.token }} --skip-duplicate './package/*.nupkg'
+      - name: Run tests
+        run: dotnet test ${{ inputs.project-path }} --configuration ${{ inputs.build-config }}

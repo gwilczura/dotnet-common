@@ -10,9 +10,16 @@ permissions:
 
 jobs:
   build-and-release:
-    uses: ./.github/workflows/build-and-publish.yml
+    uses: ./.github/workflows/build-and-test.yml
     with:
-      solution-path: 'src/Wilczura.Common/Wilczura.Common.sln'
+      project-path: 'src/Wilczura.Common/Wilczura.Common.Tests.Unit/Wilczura.Common.Tests.Unit.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-test:
+    uses: ./.github/workflows/build-and-publish.yml
+    needs: build-and-release
+    with:
       project-path: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
