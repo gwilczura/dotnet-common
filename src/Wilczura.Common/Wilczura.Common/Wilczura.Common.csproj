@@ -4,12 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.0.4</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Description>Shared code used by all layers of the application</Description>
     <Copyright>Grzegorz Wilczura</Copyright>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Add Elastic Apm</PackageReleaseNotes>
+    <PackageReleaseNotes>Add const for ApplicationNameClaim</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

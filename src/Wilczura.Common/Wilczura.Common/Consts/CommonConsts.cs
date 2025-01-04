@@ -6,5 +6,7 @@ public static class CommonConsts
     public const string ServicePrincipalKey = "ServicePrincipal";
     public const string KeyVaultNameKey = "KeyVaultName";
 
+    public const string ApplicationNameClaim = "appid";
+
     public const string HttpClientSectionName = "HttpClient";
 }
