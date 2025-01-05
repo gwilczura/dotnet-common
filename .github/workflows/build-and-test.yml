@@ -6,6 +6,9 @@ on:
       project-path:
         required: true
         type: string
+      unique-name:
+        required: true
+        type: string
       build-config:
         required: false
         default: 'Debug'
@@ -57,7 +60,7 @@ jobs:
       - name: Upload Test Result Files
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: ${{ inputs.unique-name }}-test-results
           path: ${{ github.workspace }}/**/TestResults/**/*
           retention-days: 5
           

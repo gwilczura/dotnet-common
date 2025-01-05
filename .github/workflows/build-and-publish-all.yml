@@ -20,6 +20,7 @@ jobs:
     needs: hello
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Common.Tests.Unit/Wilczura.Common.Tests.Unit.csproj'
+      unique-name: common-test
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,7 +34,7 @@ jobs:
 
   servicebus-publish:
     uses: ./.github/workflows/build-and-publish.yml
-    needs: hello
+    needs: common-test
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Common.ServiceBus/Wilczura.Common.ServiceBus.csproj'
     secrets:
@@ -41,7 +42,7 @@ jobs:
 
   web-publish:
     uses: ./.github/workflows/build-and-publish.yml
-    needs: hello
+    needs: common-test
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Common.Web/Wilczura.Common.Web.csproj'
     secrets:
@@ -53,6 +54,7 @@ jobs:
     needs: hello
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Demo.Host.Tests.Integration/Wilczura.Demo.Host.Tests.Integration.csproj'
+      unique-name: host-test-integration
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
 
