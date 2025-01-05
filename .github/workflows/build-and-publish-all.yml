@@ -59,7 +59,7 @@ jobs:
   host-publish:
     name: host - publish
     uses: ./.github/workflows/build-and-publish.yml
-    needs: host-test-integration
+    needs: [host-test-integration, common-test]
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Common.Host/Wilczura.Common.Host.csproj'
     secrets:

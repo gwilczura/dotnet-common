@@ -13,9 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wilczura.Common.Host\Wilczura.Common.Host.csproj" />
-    <ProjectReference Include="..\Wilczura.Common.ServiceBus\Wilczura.Common.ServiceBus.csproj" />
-    <ProjectReference Include="..\Wilczura.Common.Web\Wilczura.Common.Web.csproj" />
-    <ProjectReference Include="..\Wilczura.Common\Wilczura.Common.csproj" />
     <ProjectReference Include="..\Wilczura.Demo.Adapters.Controllers\Wilczura.Demo.Adapters.Controllers.csproj" />
   </ItemGroup>
 
