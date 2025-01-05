@@ -1,0 +1,56 @@
+name: Wilczura.Common - build, test and release all packages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    name: Hello
+    steps:
+      - name: Hello
+        run: echo Hello
+      
+  common-test:
+    uses: ./.github/workflows/build-and-test.yml
+    needs: hello
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Common.Tests.Unit/Wilczura.Common.Tests.Unit.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  common-publish:
+    uses: ./.github/workflows/build-and-publish.yml
+    needs: common-test
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Common/Wilczura.Common.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  servicebus-publish:
+    uses: ./.github/workflows/build-and-publish.yml
+    needs: hello
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Common.ServiceBus/Wilczura.Common.ServiceBus.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  web-publish:
+    uses: ./.github/workflows/build-and-publish.yml
+    needs: hello
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Common.Web/Wilczura.Common.Web.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
+  host-publish:
+    uses: ./.github/workflows/build-and-publish.yml
+    needs: hello
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Common.Host/Wilczura.Common.Host.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
