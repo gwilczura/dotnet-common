@@ -21,3 +21,6 @@ var app = builder.Build();
 app.UseObservabilityDefaults();
 
 app.Run();
+
+// needed for integration tests
+public partial class Program { }

@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Demo.Host", "Wilcz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Common.Tests.Unit", "Wilczura.Common.Tests.Unit\Wilczura.Common.Tests.Unit.csproj", "{D950F2C8-901C-4A16-A425-1C9B1F501416}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wilczura.Demo.Host.Tests.Integration", "Wilczura.Demo.Host.Tests.Integration\Wilczura.Demo.Host.Tests.Integration.csproj", "{CA7DF601-FDC9-4BD1-B23F-8F3C11C8B276}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D950F2C8-901C-4A16-A425-1C9B1F501416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7DF601-FDC9-4BD1-B23F-8F3C11C8B276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7DF601-FDC9-4BD1-B23F-8F3C11C8B276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7DF601-FDC9-4BD1-B23F-8F3C11C8B276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7DF601-FDC9-4BD1-B23F-8F3C11C8B276}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

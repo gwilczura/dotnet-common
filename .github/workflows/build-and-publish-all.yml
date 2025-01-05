@@ -46,10 +46,20 @@ jobs:
       project-path: 'src/Wilczura.Common/Wilczura.Common.Web/Wilczura.Common.Web.csproj'
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+      
+  host-test-integration:
+    name: host - int tests
+    uses: ./.github/workflows/build-and-test.yml
+    needs: hello
+    with:
+      project-path: 'src/Wilczura.Common/Wilczura.Demo.Host.Tests.Integration/Wilczura.Demo.Host.Tests.Integration.csproj'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
 
   host-publish:
+    name: host - publish
     uses: ./.github/workflows/build-and-publish.yml
-    needs: hello
+    needs: host-test-integration
     with:
       project-path: 'src/Wilczura.Common/Wilczura.Common.Host/Wilczura.Common.Host.csproj'
     secrets:
