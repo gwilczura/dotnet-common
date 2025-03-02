@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: loc-platform-all
+  description: A core file linking to platfrom components
+spec:
+  targets:
+    - ./apis.yaml
+    - ./systems.yaml
+    # - ./components.yaml
+    # - ./domains.yaml
+    # - ./resources.yaml
