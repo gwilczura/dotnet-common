@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+# https://backstage.io/docs/features/software-catalog/descriptor-format/#kind-component
+kind: Component
+metadata:
+  name: component-library-common
+  description: .Net Library with cross-cutting, common code
+spec:
+  owner: sharks
+  type: library
+  lifecycle: production

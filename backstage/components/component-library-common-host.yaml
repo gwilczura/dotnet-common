@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+# https://backstage.io/docs/features/software-catalog/descriptor-format/#kind-component
+kind: Component
+metadata:
+  name: component-library-common-host
+  description: .Net Library with common code for host level functionalities
+spec:
+  owner: sharks
+  type: library
+  lifecycle: production
