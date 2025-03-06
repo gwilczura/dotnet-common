@@ -6,3 +6,5 @@ metadata:
 spec:
   targets:
     - ./components/component-library-common.yaml
+    - ./components/component-library-common-web.yaml
+    - ./components/component-library-common-host.yaml

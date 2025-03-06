@@ -8,3 +8,5 @@ spec:
   owner: sharks
   type: library
   lifecycle: production
+  dependsOn:
+    - component:component-library-common
