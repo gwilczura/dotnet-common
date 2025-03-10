@@ -14,7 +14,7 @@ public static class HealthControllerTests
         }
 
         [Fact]
-        public async void WhenCalledReturnsValue()
+        public async Task WhenCalledReturnsValue()
         {
             // Arrange
             var client = _factory.CreateClient();
