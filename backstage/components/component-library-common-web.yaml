@@ -1,3 +1,4 @@
+# GW-PRES-BCKS-006-D example library definition
 apiVersion: backstage.io/v1alpha1
 # https://backstage.io/docs/features/software-catalog/descriptor-format/#kind-component
 kind: Component
@@ -8,5 +9,6 @@ spec:
   owner: sharks
   type: library
   lifecycle: production
+# GW-PRES-BCKS-006-E with dependency on other library
   dependsOn:
     - component:component-library-common

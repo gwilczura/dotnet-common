@@ -5,6 +5,7 @@ metadata:
   description: A collection of all common components
 spec:
   targets:
+# GW-PRES-BCKS-006-B and here are linked all the libs from this repo
     - ./components/component-library-common.yaml
     - ./components/component-library-common-web.yaml
     - ./components/component-library-common-host.yaml
